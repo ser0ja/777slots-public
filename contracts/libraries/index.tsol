@@ -1,0 +1,6 @@
+pragma ever-solidity >= 0.68.0;
+
+import "./constants.tsol";
+import "./errors.tsol";
+import "./gas.tsol";
+import "./msg_flag.tsol";

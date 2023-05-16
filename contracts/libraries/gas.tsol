@@ -1,0 +1,6 @@
+pragma ever-solidity >= 0.68.0;
+
+library gas {
+    uint128 constant root_initial_balance = 2 * 1e9;
+    uint128 constant root_upgrade_balance = 2 * 1e9;
+}

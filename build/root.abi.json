@@ -1,0 +1,170 @@
+{
+	"ABI version": 2,
+	"version": "2.3",
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"_owner","type":"address"},
+				{"name":"_deploy_time","type":"uint64"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "jackpot",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"map(uint8,uint128)"}
+			]
+		},
+		{
+			"name": "jackpot_by_rate",
+			"inputs": [
+				{"name":"_rate","type":"uint8"}
+			],
+			"outputs": [
+				{"name":"value0","type":"uint128"}
+			]
+		},
+		{
+			"name": "jackpot_reset",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"map(uint8,uint128)"}
+			]
+		},
+		{
+			"name": "set_blacklist",
+			"inputs": [
+				{"name":"_player","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"bool"}
+			]
+		},
+		{
+			"name": "remove_blacklist",
+			"inputs": [
+				{"name":"_player","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"bool"}
+			]
+		},
+		{
+			"name": "symbols_list",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"string[]"}
+			]
+		},
+		{
+			"name": "players",
+			"inputs": [
+			],
+			"outputs": [
+				{"components":[{"name":"pubkey","type":"uint256"},{"name":"balance","type":"uint128"},{"name":"status","type":"uint8"},{"name":"rate","type":"uint8"},{"name":"symbols","type":"uint8[]"}],"name":"value0","type":"map(address,tuple)"}
+			]
+		},
+		{
+			"name": "player",
+			"inputs": [
+				{"name":"_player","type":"address"}
+			],
+			"outputs": [
+				{"components":[{"name":"pubkey","type":"uint256"},{"name":"balance","type":"uint128"},{"name":"status","type":"uint8"},{"name":"rate","type":"uint8"},{"name":"symbols","type":"uint8[]"}],"name":"value0","type":"tuple"}
+			]
+		},
+		{
+			"name": "player_balance",
+			"inputs": [
+				{"name":"_player","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"uint128"}
+			]
+		},
+		{
+			"name": "deposit",
+			"inputs": [
+				{"name":"_pubkey","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "withdraw",
+			"inputs": [
+				{"name":"_player","type":"address"},
+				{"name":"_amount","type":"uint128"}
+			],
+			"outputs": [
+				{"name":"value0","type":"uint128"}
+			]
+		},
+		{
+			"name": "spin",
+			"inputs": [
+				{"name":"_player","type":"address"},
+				{"name":"_rate","type":"uint8"}
+			],
+			"outputs": [
+				{"name":"value0","type":"uint8[]"}
+			]
+		},
+		{
+			"name": "transfer_all",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"value0","type":"bool"}
+			]
+		},
+		{
+			"name": "upgrade",
+			"inputs": [
+				{"name":"_new_code","type":"cell"},
+				{"name":"_upgrade_time","type":"uint64"},
+				{"name":"_args","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "_random",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"_random","type":"uint64"}
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"_random","type":"uint64"}
+	],
+	"events": [
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"_random","type":"uint64"},
+		{"name":"version","type":"uint64"},
+		{"name":"owner","type":"address"},
+		{"name":"deploy_time","type":"uint64"},
+		{"name":"upgrade_time","type":"uint64"},
+		{"name":"symbol_db","type":"string[]"},
+		{"name":"symbols","type":"uint8[]"},
+		{"name":"rates","type":"uint8[]"},
+		{"name":"ratio","type":"uint8"},
+		{"name":"jackpots","type":"uint128[]"},
+		{"name":"jackpot_db","type":"map(uint8,uint128)"},
+		{"components":[{"name":"arg0","type":"uint8[]"},{"name":"arg1","type":"uint128[]"},{"name":"arg2","type":"uint256[]"},{"name":"arg3","type":"bool[]"},{"name":"arg4","type":"address[]"},{"name":"arg5","type":"string[]"}],"name":"args_db","type":"map(uint8,tuple)"},
+		{"components":[{"name":"pubkey","type":"uint256"},{"name":"balance","type":"uint128"},{"name":"status","type":"uint8"},{"name":"rate","type":"uint8"},{"name":"symbols","type":"uint8[]"}],"name":"player_db","type":"map(address,tuple)"}
+	]
+}
