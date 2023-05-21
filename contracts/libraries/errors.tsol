@@ -8,6 +8,8 @@ library errors {
     uint16 constant diff_pubkey = 1101;
     uint16 constant root_deploy_balance_too_low = 1102;
     uint16 constant root_upgrade_balance_too_low = 1103;
+    uint16 constant jackpot_reset_balance_too_low = 1104;
+    uint16 constant jackpot_deposit_balance_too_low = 1105;
 
     uint16 constant msg_not_address = 1200;
     uint16 constant msg_not_pubkey = 1201;

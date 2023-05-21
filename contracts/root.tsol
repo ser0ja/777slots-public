@@ -55,9 +55,9 @@ contract Root {
         owner = _owner;
         deploy_time = _deploy_time;
 
-        jackpot_init();
-        uint128 init_balance = jackpot_balance() + players_balance();
+        uint128 init_balance = jackpot_init_balance() + players_balance();
         require(balance() >= (gas.root_initial_balance + init_balance), errors.root_deploy_balance_too_low);
+        jackpot_init();
         tvm.rawReserve(gas.root_initial_balance + init_balance, 0);
         owner.transfer({value: 0, flag: msg_flag.all_not_reserved + msg_flag.ignore_errors, bounce: false});
     }
@@ -81,24 +81,44 @@ contract Root {
     }
 
     function jackpot_balance() private view returns (uint128) {
-        uint128 amount = uint128(0);
+        uint128 sum = uint128(0);
         for ((, uint128 a) : jackpot_db) {
-            amount += a;
+            sum += a;
         }
-        return amount;
+        return sum;
+    }
+
+    function jackpot_init_balance() private view returns (uint128) {
+        uint128 sum = uint128(0);
+        for (uint8 i = 0; i < rates.length; ++i) {
+            uint128 amount = uint128(rates[i]) * uint128(1e10);
+            sum += (amount + (amount / ratio));
+        }
+        return sum;
     }
 
     function jackpot_init() private {
         for (uint8 i = 0; i < rates.length; ++i) {
-            uint128 rate = uint128(rates[i]) * uint128(1e10);
-            // multiplier
-            jackpot_db.add(rates[i], rate + (rate / ratio));
+            uint128 amount = uint128(rates[i]) * uint128(1e10);
+            jackpot_db.add(rates[i], amount + (amount / ratio));
         }
     }
 
     function jackpot_reset() external check_owner returns (mapping(uint8 => uint128)) {
+        uint128 init_balance = jackpot_balance() + players_balance();
+        require(balance() >= init_balance, errors.jackpot_reset_balance_too_low);
         jackpot_init();
         return jackpot_db;
+    }
+
+    function jackpot_deposit(uint8 _rate, uint8 _coins) external check_owner returns (bool) {
+        uint128 amount = uint128(_coins) * uint128(1e9);
+        uint128 init_balance = amount + jackpot_balance() + players_balance();
+        require(balance() >= init_balance, errors.jackpot_deposit_balance_too_low);
+        jackpot_db[_rate] += amount;
+        tvm.rawReserve(init_balance, 0);
+        owner.transfer({value: 0, flag: msg_flag.all_not_reserved + msg_flag.ignore_errors, bounce: false});
+        return true;
     }
 
     function set_blacklist(address _player) external check_owner returns (bool) {

@@ -38,6 +38,16 @@
 			]
 		},
 		{
+			"name": "jackpot_deposit",
+			"inputs": [
+				{"name":"_rate","type":"uint8"},
+				{"name":"_coins","type":"uint8"}
+			],
+			"outputs": [
+				{"name":"value0","type":"bool"}
+			]
+		},
+		{
 			"name": "set_blacklist",
 			"inputs": [
 				{"name":"_player","type":"address"}
